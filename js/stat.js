@@ -49,9 +49,9 @@ window.renderStatistics = function (ctx, names, times) {
 
   for (var i = 0; i < names.length; i++) {
     ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 255, ' + getRandomColor() + ')';
-    ctx.fillRect(BAR_X + i * (BAR_WIDTH + BAR_GAP), BAR_Y, BAR_WIDTH, BAR_HEIGHT * (-1) * times[i] / maxTime);
+    ctx.fillRect(BAR_X + i * (BAR_WIDTH + BAR_GAP), BAR_Y, BAR_WIDTH, (-BAR_HEIGHT * times[i]) / maxTime);
     ctx.fillStyle = '#000';
     ctx.fillText(names[i], BAR_X + i * (BAR_WIDTH + BAR_GAP), BAR_Y + GAP);
-    ctx.fillText(Math.round(times[i]), BAR_X + i * (BAR_WIDTH + BAR_GAP), BAR_Y + BAR_HEIGHT * (-1) * times[i] / maxTime - 2 * GAP);
+    ctx.fillText(Math.round(times[i]), BAR_X + i * (BAR_WIDTH + BAR_GAP), BAR_Y + (-BAR_HEIGHT * times[i]) / maxTime - 2 * GAP);
   }
 };
