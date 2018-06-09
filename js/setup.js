@@ -6,10 +6,6 @@ var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content.querySelector('.setup-similar-item');
 
-var getRandom = function (arr) {
-  return arr[Math.floor((Math.random() * arr.length))];
-};
-
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор',
   'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко',
@@ -17,16 +13,22 @@ var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', '�
 var WIZARD_COAT = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)',
   'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES = ['black', 'red', 'blue', 'yellow', 'green'];
+var WIZARDS_LENGTH = 4;
 var wizards = [];
-wizards.length = 4;
 
-for (var j = 0; j < wizards.length; j++) {
-  wizards[j] = {
-    name: getRandom(WIZARD_NAMES) + ' ' + getRandom(WIZARD_SURNAMES),
-    coatColor: getRandom(WIZARD_COAT),
-    eyesColor: getRandom(WIZARD_EYES)
-  };
-}
+var getRandom = function (arr) {
+  return arr[Math.floor((Math.random() * arr.length))];
+};
+
+var fillArray = function () {
+  for (var j = 0; j < WIZARDS_LENGTH; j++) {
+    wizards[j] = {
+      name: getRandom(WIZARD_NAMES) + ' ' + getRandom(WIZARD_SURNAMES),
+      coatColor: getRandom(WIZARD_COAT),
+      eyesColor: getRandom(WIZARD_EYES)
+    };
+  }
+};
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -36,10 +38,15 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
-}
-similarListElement.appendChild(fragment);
+var addElements = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < WIZARDS_LENGTH; i++) {
+    fragment.appendChild(renderWizard(wizards[i]));
+  }
+  similarListElement.appendChild(fragment);
+};
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+fillArray();
+addElements();
