@@ -11,6 +11,8 @@ var WIZARD_FIREBALL = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var WIZARDS_LENGTH = 4;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
+var SETUP_TOP = 80;
+var SETUP_LEFT = 50;
 
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
@@ -39,6 +41,8 @@ var openPopup = function () {
 
 var closePopup = function () {
   setup.classList.add('hidden');
+  setup.style.top = SETUP_TOP + 'px';
+  setup.style.left = SETUP_LEFT + '%';
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
@@ -64,19 +68,20 @@ setupClose.addEventListener('keydown', function (evt) {
 
 // валидация ввода имени персонажа
 var validateInput = function () {
-  userNameInput.addEventListener('invalid', function () {
-    if (userNameInput.validity.tooShort) {
-      userNameInput.setCustomValidity('Имя слишком короткое');
-    } else if (userNameInput.validity.tooLong) {
-      userNameInput.setCustomValidity('Имя слишком длинное');
-    } else if (userNameInput.validity.valueMissing) {
-      userNameInput.setCustomValidity('Обязательное поле');
-    } else {
-      userNameInput.setCustomValidity('');
-    }
-  });
+  if (userNameInput.validity.tooShort) {
+    userNameInput.setCustomValidity('Имя слишком короткое');
+  } else if (userNameInput.validity.tooLong) {
+    userNameInput.setCustomValidity('Имя слишком длинное');
+  } else if (userNameInput.validity.valueMissing) {
+    userNameInput.setCustomValidity('Обязательное поле');
+  } else {
+    userNameInput.setCustomValidity('');
+  }
 };
-validateInput();
+
+userNameInput.addEventListener('invalid', function () {
+  validateInput();
+});
 
 // изменение цвета мантии, глаз и файерболла по нажатию
 wizardCoat.addEventListener('click', function () {
