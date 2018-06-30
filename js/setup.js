@@ -47,8 +47,7 @@
   form.addEventListener('submit', function (evt) {
     window.backend.save(new FormData(form), function () {
       setup.classList.add('hidden');
-    },
-    errorHandler);
+    }, errorHandler);
     evt.preventDefault();
   });
 
